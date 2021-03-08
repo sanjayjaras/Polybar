@@ -42,9 +42,9 @@ if __name__ == "__main__":
         with open(fname, "w") as txt_file:
             data = {"down":down, "up":up}
             txt_file.write("{}".format(data))
-
-        down_byte_sec = (down - dictionary["down"]) / interval
-        up_byte_sec = (up - dictionary["up"])  / interval
+        if down - dictionary["down"] > 0:
+            down_byte_sec = (down - dictionary["down"]) / interval
+            up_byte_sec = (up - dictionary["up"])  / interval
         result = "\uf103 {} \uf102 {}".format(format_speed(down_byte_sec), format_speed(up_byte_sec))
         print(result, end="")
 
