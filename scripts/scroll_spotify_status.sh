@@ -17,4 +17,4 @@ if [[ $status == "Playing" || $status == "Paused" ]]; then
 prefix=$status
 fi
 msg=$($HOME/.config/polybar/scripts/get_spotify_status.sh)
-echo $prefix $msg|cut -c 1-50
+echo $prefix "-" $msg|cut -c 1-50
