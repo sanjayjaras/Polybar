@@ -11,10 +11,26 @@
 
 
 # wait
+rand=$((1 + $RANDOM % 3))
+format='{{ title }} - {{ album }} {{ artist }}'
+if [[ $rand -eq 1 ]]
+ then
+    format='{{title}}'
+ elif [[ $rand == 2  ]]
+ then
+    format='{{artist}}'
+ elif [[ $rand == 3  ]]   
+ then
+    format='{{album}}'
+    
+fi
+#echo $format
+
 prefix=""
 status=$($HOME/.config/polybar/scripts/get_spotify_status.sh --status)
 if [[ $status == "Playing" || $status == "Paused" ]]; then
-prefix=$status
+prefix="${status} -"
 fi
-msg=$($HOME/.config/polybar/scripts/get_spotify_status.sh)
-echo $prefix "-" $msg|cut -c 1-50
+msg=$($HOME/.config/polybar/scripts/get_spotify_status.sh 1 2 $format)
+msg="$prefix $msg"
+printf "%-40s" "$msg" | cut -c 1-40
